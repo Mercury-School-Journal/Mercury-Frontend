@@ -39,7 +39,7 @@ $(document).ready(() => {
             error: (error) => {
                 console.log(error);
                 $("#error-message").css("display","block");
-                let reason = (error == "Unauthorized")?"Zły email lub hasło":"Serwer po tym adresem niedostępny (może zmień z https na http)"
+                let reason = (error.statusText == "Unauthorized")?"Zły email lub hasło":"Serwer po tym adresem niedostępny (może zmień z https na http)"
                 $("#error-message").html(reason)
             }
         });

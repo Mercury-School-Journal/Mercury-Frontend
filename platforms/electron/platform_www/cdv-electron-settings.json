@@ -1,0 +1,11 @@
+{
+    "browserWindow": {
+        "height": 700,
+        "width": 900,
+        "webPreferences":{
+            "devTools": true,
+            "nodeIntegration": false
+        },
+        "autoHideMenuBar": true
+    }
+}

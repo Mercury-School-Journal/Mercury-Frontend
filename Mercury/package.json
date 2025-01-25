@@ -1,0 +1,27 @@
+{
+  "name": "io.pawil.mercury",
+  "displayName": "Dziennik Mercury",
+  "version": "0.0.1",
+  "description": "Aplikacja do obsługi dziennika Mercury (frontend)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Pawil",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "cordova-android": "^13.0.0",
+    "cordova-browser": "^7.0.0",
+    "cordova-electron": "^4.0.0"
+  },
+  "cordova": {
+    "platforms": [
+      "electron",
+      "browser",
+      "android"
+    ]
+  }
+}

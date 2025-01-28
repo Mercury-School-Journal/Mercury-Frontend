@@ -51,7 +51,7 @@ $(document).ready(() => {
                 localStorage.setItem("api", btoa($("#loginServer").val()));
                 sessionStorage.removeItem("isOnline");
                 localStorage.setItem("login", btoa($("#loginEmail").val()));
-                window.location.href = 'index.html';
+                window.location.href = '';
             },
             error: (error) => {
                 console.log(error);

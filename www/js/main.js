@@ -24,7 +24,7 @@ $(document).ready(() => {
         $('title').text('Dziennik Mercury: '+$(this).text());
         $('#content-area').load($(this).data('url'));
     });
-    $('#logoff').on('click', function(e){
+    $('.logoff').on('click', function(e){
         e.preventDefault();
         if(cordova.platformId === 'electron'){
             localStorage.removeItem('token');
@@ -32,6 +32,6 @@ $(document).ready(() => {
         else
             deleteCookie('token');
         localStorage.removeItem("login");
-        window.location.href = 'index.html';
+        window.location.href = '';
     })
 });

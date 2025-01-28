@@ -16,7 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 $(document).ready(() => {
     $(".userName").text(atob(localStorage.getItem("login")));
+    $('#content-area').load('subpages/dashboard.htm');
+    $('.load-content').on('click', function(e) {
+        e.preventDefault();
+        $('title').text('Dziennik Mercury: '+$(this).text());
+        $('#content-area').load($(this).data('url'));
+    });
+    $('#logoff').on('click', function(e){
+        e.preventDefault();
+        if(cordova.platformId === 'electron'){
+            localStorage.removeItem('token');
+        }
+        else
+            deleteCookie('token');
+        localStorage.removeItem("login");
+        window.location.href = 'index.html';
+    })
 });

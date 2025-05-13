@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+let db;
 $(document).ready(() => {
     if(localStorage.getItem("token") === null)
     {
@@ -34,6 +34,11 @@ $(document).ready(() => {
             rel: 'stylesheet',
             type: 'text/css',
             href: 'css/main.css'
+        }).appendTo('head');
+        $('<link/>', {
+            rel: 'stylesheet',
+            type: 'text/css',
+            href: 'css/dashbord.css'
         }).appendTo('head');
         $('title').text('Dziennik Mercury: Strona Główna');
         $('body').load('main.html');

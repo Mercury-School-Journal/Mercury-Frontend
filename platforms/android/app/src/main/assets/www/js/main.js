@@ -24,6 +24,8 @@ $(document).ready(() => {
         db = event.target.result;
         const gradesStore = db.createObjectStore("grades", { keyPath: "id" });
         const subjectsStore = db.createObjectStore("subjects", { keyPath: "id" });
+        const timetableStore = db.createObjectStore("timetable", { keyPath: "id" });
+
     };
 
     request.onsuccess = (event) => {
@@ -43,17 +45,17 @@ $(document).ready(() => {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
                     },
                     success: (grades) => {
-            
+
                         const transaction = db.transaction(["grades"], "readwrite");
                         const objectStore = transaction.objectStore("grades");
                         const newIds = [];
-            
-            
+
+
                         const existingRequest = objectStore.getAll();
-            
+
                         existingRequest.onsuccess = (event) => {
                             const existingGrades = event.target.result;
-            
+
                             grades.forEach(grade => {
                                 if (!existingGrades.some(existingGrade => existingGrade.id === grade.id && grade.grade === existingGrade.grade)) {
                                     newIds.push(grade.id);
@@ -66,7 +68,7 @@ $(document).ready(() => {
                                     };
                                 };
                             });
-            
+
                             transaction.oncomplete = () => {
                                 sessionStorage.removeItem("newIds");
                                 sessionStorage.setItem("newIds", JSON.stringify(newIds));
@@ -74,7 +76,7 @@ $(document).ready(() => {
                                 console.log("New Grade IDs saved to sessionStorage:", newIds);
                             };
                         };
-            
+
                         existingRequest.onerror = (event) => {
                             console.error("Error retrieving existing grades: ", event.target.error);
                         };
@@ -108,26 +110,40 @@ $(document).ready(() => {
                 });
             },
         });
-        console.log("Database initialized.");
+
     };
 
+    $.ajax({
+        url: atob(localStorage.getItem("api")) + '/api/timetable',
+        type: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: (timetable) => {
+            const transaction = db.transaction(["timetable"], "readwrite");
+            const store = transaction.objectStore("timetable");
+
+            store.clear().onsuccess = () => {
+                timetable.forEach(entry => {
+                    store.put(entry);
+                });
+            };
+        }
+    });
+
+    console.log("Database initialized.");
     request.onerror = (event) => {
         console.error("Database error: " + event.target.errorCode);
     };
-    
-    
-
-    
-
     $('#content-area').load('subpages/dashboard.htm');
     $('.load-content').on('click', function (e) {
         e.preventDefault();
         $('title').text('Dziennik Mercury: ' + $(this).text());
-        $('<link/>', {
-            rel: 'stylesheet',
-            type: 'text/css',
-            href: 'css/' + $(this).data('name') + '.css'
-        }).appendTo('head');
+        // $('<link/>', {
+        //     rel: 'stylesheet',
+        //     type: 'text/css',
+        //     href: 'css/' + $(this).data('name') + '.css'
+        // }).appendTo('head');
         $('#content-area').load($(this).data('url'));
     });
     $('.logoff').on('click', function (e) {

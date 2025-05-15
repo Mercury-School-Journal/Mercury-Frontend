@@ -10,4 +10,5 @@
     <allow-intent href="https://*/*" />
     <icon src="www/img/logo.png" />
     <preference name="loglevel" value="DEBUG" />
+    <preference name="AutoHideSplashScreen" value="true" />
 </widget>

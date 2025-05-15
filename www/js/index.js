@@ -35,11 +35,6 @@ $(document).ready(() => {
             type: 'text/css',
             href: 'css/main.css'
         }).appendTo('head');
-        $('<link/>', {
-            rel: 'stylesheet',
-            type: 'text/css',
-            href: 'css/dashbord.css'
-        }).appendTo('head');
         $('title').text('Dziennik Mercury: Strona Główna');
         $('body').load('main.html');
     }
